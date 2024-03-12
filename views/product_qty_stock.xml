@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="product_template_action_product_custom_stock" model="ir.actions.act_window">
+        <field name="name">Products</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_ids" eval="[(5, 0, 0), 
+        (0, 0, {'view_mode': 'tree', 'view_id': ref('stock_cepal_products.product_template_qty_stock_tree_view')}), 
+        (0, 0, {'view_mode': 'form', 'view_id': ref('stock_cepal_products.product_template_qty_stock_form_view')}),                           
+        (0, 0, {'view_mode': 'kanban'})]"/>
+    </record>
+
+    <record id="product_template_qty_stock_tree_view" model="ir.ui.view">
+        <field name="name">product.template.qty.stock.product.tree</field>
+        <field name="model">product.template</field>
+        <field name="arch" type="xml">
+            <tree string="Product" editable="top" edit="1">
+                <field name="name" string="Product Name" readonly="1"/>
+                <field name="stock_level" string="Stock level" readonly="0" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="product_template_qty_stock_form_view" model="ir.ui.view">
+        <field name="name">product.template.qty.stock.product.form</field>
+        <field name="model">product.template</field>
+        <field name="arch" type="xml">
+            <field name="name" string="Product Name" readonly="1"/>
+            <field name="stock_level" string="Stock level" readonly="0" />
+        </field>
+    </record>
+
+    <menuitem id="menu_product_quantity_stock" name="Products Quantity" action="product_template_action_product_custom_stock"
+        parent="stock.menu_stock_inventory_control" sequence="1"/>
+    
+</odoo>
